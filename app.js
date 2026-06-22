@@ -43,6 +43,13 @@ try {
   S.dark = t ? t === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
 } catch(e) {}
 
+// iOS Safari real viewport height — updates --vh when address bar shows/hides
+function setVh() {
+  document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+}
+setVh();
+window.addEventListener('resize', setVh);
+
 // ── Splash screen ───────────────────────────────────────────────────
 (function initSplash() {
   const splash = document.getElementById('splash');
@@ -54,35 +61,15 @@ try {
 })();
 
 // ── Router ─────────────────────────────────────────────────────────
-let _rendering = false;
 function render() {
   const app = document.getElementById('app');
   document.documentElement.classList.toggle('dark', S.dark);
   try { localStorage.setItem('mw-theme', S.dark ? 'dark' : 'light'); } catch(e) {}
-
-  if (_rendering) {
-    app.innerHTML = S.authed ? renderMain() : renderAuth();
-    bindEvents();
-    return;
-  }
-
-  _rendering = true;
-  // Opacity only — transform on a parent breaks position:fixed children (nav bar)
-  app.style.transition = 'opacity 0.14s ease';
-  requestAnimationFrame(() => { app.style.opacity = '0'; });
-
-  setTimeout(() => {
-    app.innerHTML = S.authed ? renderMain() : renderAuth();
-    bindEvents();
-    app.style.transition = 'opacity 0.28s cubic-bezier(0.25,0,0.25,1)';
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      app.style.opacity = '1';
-    }));
-    setTimeout(() => {
-      app.style.transition = '';
-      _rendering = false;
-    }, 320);
-  }, 160);
+  app.innerHTML = S.authed ? renderMain() : renderAuth();
+  bindEvents();
+  // Animate only the content — nav bar stays fixed and untouched
+  const content = app.querySelector('.tab-content, .detail-screen, .group-chat-screen, .auth-screen');
+  if (content) content.classList.add('page-enter');
 }
 
 // ── SVG Icons (matching Lucide) ────────────────────────────────────
@@ -186,8 +173,8 @@ function renderMainShell(body) {
   const greet = S.dark ? 'לילה טוב, נועה' : 'בוקר טוב, נועה';
   const titles = { home: S.dark?'איך את מרגישה הערב?':'איך את מרגישה היום?', community:'הקהילה שלך', tools:'כלים לרגעים קשים', profile:'המרחב שלי' };
 
-  // If a detail is open, don't show the header
-  const showHeader = !S.activeHome && !S.activeTool && !S.activeProfile && !S.activeGroup;
+  const inDetail = S.activeHome || S.activeTool || S.activeProfile;
+  const showHeader = !inDetail;
 
   return `
 <div class="main-screen">
@@ -202,13 +189,13 @@ function renderMainShell(body) {
 
   ${body}
 
-  <!-- Bottom nav (hidden during group chat) -->
+  ${!inDetail ? `
   <nav class="bottom-nav">
     ${navItem('home',      SVG.home,  'בית')}
     ${navItem('community', SVG.users, 'קהילה')}
     ${navItem('tools',     SVG.book,  'כלים')}
     ${navItem('profile',   SVG.user,  'פרופיל')}
-  </nav>
+  </nav>` : ''}
 </div>`;
 }
 
@@ -849,12 +836,6 @@ function renderGroupChatScreen() {
       <button class="chat-send-btn" data-group-send="${g.id}">${SVG.send}</button>
     </div>
   </div>
-  <nav class="bottom-nav">
-    ${navItem('home',SVG.home,'בית')}
-    ${navItem('community',SVG.users,'קהילה')}
-    ${navItem('tools',SVG.book,'כלים')}
-    ${navItem('profile',SVG.user,'פרופיל')}
-  </nav>
 </div>`;
 }
 

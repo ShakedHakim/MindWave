@@ -102,6 +102,7 @@ html {
   font-size: 16px;
   direction: rtl;
   -webkit-text-size-adjust: 100%;
+  height: -webkit-fill-available;
 }
 
 body {
@@ -109,6 +110,7 @@ body {
   background: linear-gradient(180deg, oklch(0.98 0.02 150) 0%, oklch(0.97 0.03 220) 100%);
   color: var(--foreground);
   min-height: 100vh;
+  min-height: -webkit-fill-available;
   min-height: 100dvh;
   display: flex;
   justify-content: center;
@@ -125,6 +127,7 @@ body {
   width: 100%;
   max-width: 430px;
   min-height: 100vh;
+  min-height: -webkit-fill-available;
   min-height: 100dvh;
   background: transparent;
   position: relative;
@@ -133,6 +136,7 @@ body {
 #app {
   width: 100%;
   min-height: 100vh;
+  min-height: -webkit-fill-available;
   min-height: 100dvh;
   overflow-y: auto;
   overflow-x: hidden;
@@ -565,7 +569,7 @@ body {
 .detail-screen {
   display: flex; flex-direction: column;
   height: calc(100vh - 80px);
-  height: calc(100dvh - 80px);
+  height: calc(var(--vh, 1vh) * 100 - 80px);
   padding: 0 12px;
 }
 .detail-header {
@@ -881,7 +885,7 @@ body {
 .group-chat-screen {
   display: flex; flex-direction: column;
   height: calc(100vh - 80px);
-  height: calc(100dvh - 80px);
+  height: calc(var(--vh, 1vh) * 100 - 80px);
   padding: 0 12px;
 }
 .group-chat-header {
@@ -1030,10 +1034,17 @@ body {
    ANIMATIONS
    ============================================================ */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-enter {
+  animation: pageEnter 0.3s cubic-bezier(0.25, 0, 0.25, 1) both;
+}
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
