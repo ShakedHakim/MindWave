@@ -17,7 +17,7 @@ button { color: inherit; -webkit-appearance: none; background: none; border: non
   align-items: center;
   justify-content: center;
   background: #ffffff;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.9s ease;
 }
 #splash.hide {
   opacity: 0;
@@ -27,7 +27,7 @@ button { color: inherit; -webkit-appearance: none; background: none; border: non
   width: 110px;
   height: 110px;
   object-fit: contain;
-  animation: splashFadeIn 0.8s ease both;
+  animation: splashIconIn 1.4s cubic-bezier(0.25, 0, 0.25, 1) both;
 }
 #splash-footer {
   position: absolute;
@@ -36,7 +36,7 @@ button { color: inherit; -webkit-appearance: none; background: none; border: non
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  animation: splashFadeIn 0.8s 0.3s ease both;
+  animation: splashFadeIn 1s 1s ease both;
   opacity: 0;
 }
 #splash-from {
@@ -55,6 +55,11 @@ button { color: inherit; -webkit-appearance: none; background: none; border: non
 @keyframes splashFadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+@keyframes splashIconIn {
+  0%   { opacity: 0; transform: scale(0.82); }
+  60%  { opacity: 1; transform: scale(1.04); }
+  100% { opacity: 1; transform: scale(1);    }
 }
 
 :root {
