@@ -612,9 +612,10 @@ body {
   flex: 1; overflow-y: auto; overflow-x: hidden;
   border-radius: 1rem;
   background: oklch(from var(--background) l c h / 0.5);
-  padding: 16px;
+  padding: 12px;
+  scrollbar-width: none;
 }
-.detail-body::-webkit-scrollbar { width: 0; }
+.detail-body::-webkit-scrollbar { display: none; }
 
 /* ============================================================
    BREATHING BODY
@@ -924,7 +925,7 @@ body {
 /* ============================================================
    REPORT BODY
    ============================================================ */
-.report-wrap { display: flex; flex-direction: column; gap: 16px; padding-bottom: 8px; }
+.report-wrap { display: flex; flex-direction: column; gap: 10px; padding-bottom: 4px; }
 
 .report-period-tabs {
   display: flex; background: var(--muted);
@@ -951,18 +952,18 @@ body {
 /* Header gradient card */
 .report-header-card {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  border-radius: 1.5rem; padding: 22px 20px;
+  border-radius: 1.5rem; padding: 14px 16px;
 }
-.report-week-label { font-size: 12px; color: var(--primary-fg); opacity: 0.75; margin-bottom: 6px; }
-.report-headline { font-size: 22px; font-weight: 700; color: var(--primary-fg); margin-bottom: 6px; }
-.report-sub-headline { font-size: 14px; color: var(--primary-fg); opacity: 0.9; line-height: 1.5; }
+.report-week-label { font-size: 11px; color: var(--primary-fg); opacity: 0.75; margin-bottom: 3px; }
+.report-headline { font-size: 18px; font-weight: 700; color: var(--primary-fg); margin-bottom: 3px; }
+.report-sub-headline { font-size: 13px; color: var(--primary-fg); opacity: 0.9; line-height: 1.4; }
 
 /* Section card */
 .report-section-card {
   background: var(--card); border-radius: 1.5rem;
-  padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
-.report-section-title { font-size: 15px; font-weight: 600; color: var(--foreground); margin-bottom: 16px; }
+.report-section-title { font-size: 14px; font-weight: 600; color: var(--foreground); margin-bottom: 10px; }
 
 /* Mood chart */
 .report-chart-bars {
@@ -988,10 +989,10 @@ body {
 .legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-left: 4px; }
 
 /* Stats grid */
-.report-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.report-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .report-stat-card {
   background: var(--card); border-radius: 1.25rem;
-  padding: 18px 14px; text-align: center;
+  padding: 12px 10px; text-align: center;
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 .report-stat-card.report-stat-highlight {
@@ -999,23 +1000,23 @@ body {
 }
 .report-stat-highlight .report-stat-value,
 .report-stat-highlight .report-stat-label { color: var(--primary-fg); }
-.report-stat-value { font-size: 28px; font-weight: 700; color: var(--foreground); line-height: 1.1; }
-.report-stat-label { font-size: 12px; color: var(--muted-fg); margin-top: 5px; }
+.report-stat-value { font-size: 22px; font-weight: 700; color: var(--foreground); line-height: 1.1; }
+.report-stat-label { font-size: 11px; color: var(--muted-fg); margin-top: 3px; }
 
 /* Insights list */
-.report-insights-list { display: flex; flex-direction: column; gap: 14px; }
-.report-insight-row { display: flex; align-items: flex-start; gap: 12px; }
-.insight-icon { font-size: 20px; line-height: 1.4; flex-shrink: 0; }
+.report-insights-list { display: flex; flex-direction: column; gap: 10px; }
+.report-insight-row { display: flex; align-items: flex-start; gap: 10px; }
+.insight-icon { font-size: 17px; line-height: 1.4; flex-shrink: 0; }
 .insight-text { font-size: 14px; color: var(--foreground); line-height: 1.6; }
 
 /* Tip card */
 .report-tip-card {
   background: linear-gradient(135deg, oklch(0.92 0.05 80 / 0.5) 0%, oklch(0.92 0.05 80 / 0.25) 100%);
-  border-radius: 1.5rem; padding: 20px;
+  border-radius: 1.5rem; padding: 12px 14px;
   border: 1px solid oklch(0.92 0.05 80 / 0.4);
 }
-.report-tip-title { font-size: 14px; font-weight: 600; color: var(--accent-fg); margin-bottom: 8px; }
-.report-tip-text { font-size: 14px; color: var(--accent-fg); line-height: 1.7; opacity: 0.9; }
+.report-tip-title { font-size: 13px; font-weight: 600; color: var(--accent-fg); margin-bottom: 4px; }
+.report-tip-text { font-size: 13px; color: var(--accent-fg); line-height: 1.5; opacity: 0.9; }
 
 /* ============================================================
    PRIVACY BODY
