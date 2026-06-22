@@ -235,7 +235,6 @@ function renderHomeTab() {
       <div class="featured-icon-box">${SVG.wind}</div>
       <div>
         <h3 class="featured-title">תרגיל הרגעה — 2 דקות</h3>
-        <p class="featured-sub">נשימה מודרכת להפחתת חרדה ומתח</p>
         <button class="featured-btn" data-home-detail="breathing">התחילי עכשיו</button>
       </div>
     </div>
@@ -763,7 +762,7 @@ const joinableGroups = [
 function renderCommunityTab() {
   const isMine = S.communityTab === 'mine';
   return `
-<div class="tab-content">
+<div class="tab-content scrollable">
   <!-- Sub-tabs -->
   <div class="comm-tabs">
     <button class="comm-tab ${isMine?'active':''}" id="comm-mine">הקהילות שלי</button>
@@ -984,7 +983,7 @@ const tools = [
 
 function renderToolsTab() {
   return `
-<div class="tab-content">
+<div class="tab-content scrollable">
   <p class="tools-hint">כלים פשוטים לרגעים קשים. בקצב שלך.</p>
   <div class="tools-grid">
     ${tools.map(t => `
@@ -1011,7 +1010,7 @@ function renderToolDetail() {
 // ── PROFILE TAB ───────────────────────────────────────────────────────
 function renderProfileTab() {
   return `
-<div class="tab-content">
+<div class="tab-content scrollable">
   <!-- Avatar card -->
   <div class="profile-card">
     <div class="profile-avatar-wrap">

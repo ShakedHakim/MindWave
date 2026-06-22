@@ -280,16 +280,16 @@ body {
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   overflow: hidden;
-  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
 }
 .app-header {
-  padding: 20px 24px 12px;
+  padding: 12px 20px 8px;
   display: flex; align-items: center; justify-content: space-between;
   flex-shrink: 0;
 }
-.app-greeting { font-size: 14px; color: var(--muted-fg); }
+.app-greeting { font-size: 13px; color: var(--muted-fg); }
 .app-title {
-  margin-top: 4px; font-size: 24px; font-weight: 600; color: var(--foreground);
+  margin-top: 2px; font-size: 20px; font-weight: 600; color: var(--foreground);
 }
 .header-icon-btn {
   width: 48px; height: 48px;
@@ -347,8 +347,12 @@ body {
   display: flex; flex-direction: column;
   gap: 10px;
   flex: 1;
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
+}
+/* tabs with lots of content can scroll */
+.tab-content.scrollable {
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -366,15 +370,15 @@ body {
   display: flex; justify-content: space-between; gap: 8px; margin-top: 10px;
 }
 .mood-btn {
-  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
-  border-radius: 1rem; background: var(--muted); padding: 12px 4px;
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+  border-radius: 1rem; background: var(--muted); padding: 8px 4px;
   border: none; cursor: pointer; font-family: var(--font);
   transition: background var(--ease), transform var(--ease);
 }
 .mood-btn:hover  { background: oklch(0.78 0.09 175 / 0.3); }
 .mood-btn:active { transform: scale(0.95); }
 .mood-btn.selected { background: oklch(0.78 0.09 175 / 0.3); }
-.mood-emoji { font-size: 24px; }
+.mood-emoji { font-size: 22px; }
 .mood-label { font-size: 10px; color: var(--muted-fg); }
 
 .featured-card {
