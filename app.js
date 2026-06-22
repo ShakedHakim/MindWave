@@ -177,7 +177,7 @@ function renderMainShell(body) {
   const showHeader = !inDetail;
 
   return `
-<div class="main-screen">
+<div class="main-screen ${inDetail ? 'no-nav' : ''}">
   ${showHeader ? `
   <header class="app-header">
     <div>
@@ -809,7 +809,7 @@ function renderGroupChatScreen() {
     ];
   }
   return `
-<div class="main-screen">
+<div class="main-screen no-nav">
   <div class="group-chat-screen" style="padding-top:12px">
     <div class="group-chat-header">
       <button class="back-btn" data-back="activeGroup">${SVG.arrowR}</button>
