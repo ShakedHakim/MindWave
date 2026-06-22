@@ -67,25 +67,19 @@ function render() {
   }
 
   _rendering = true;
-  // Set transition first, THEN change opacity so the browser registers it
-  app.style.transition = 'opacity 0.14s ease, transform 0.14s ease';
-  requestAnimationFrame(() => {
-    app.style.opacity = '0';
-    app.style.transform = 'translateY(5px)';
-  });
+  // Opacity only — transform on a parent breaks position:fixed children (nav bar)
+  app.style.transition = 'opacity 0.14s ease';
+  requestAnimationFrame(() => { app.style.opacity = '0'; });
 
   setTimeout(() => {
     app.innerHTML = S.authed ? renderMain() : renderAuth();
     bindEvents();
-    app.style.transition = 'opacity 0.28s cubic-bezier(0.25,0,0.25,1), transform 0.28s cubic-bezier(0.25,0,0.25,1)';
-    // Double rAF ensures new DOM is painted before fade-in starts
+    app.style.transition = 'opacity 0.28s cubic-bezier(0.25,0,0.25,1)';
     requestAnimationFrame(() => requestAnimationFrame(() => {
       app.style.opacity = '1';
-      app.style.transform = 'translateY(0)';
     }));
     setTimeout(() => {
       app.style.transition = '';
-      app.style.transform  = '';
       _rendering = false;
     }, 320);
   }, 160);
