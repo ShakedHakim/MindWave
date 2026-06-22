@@ -61,31 +61,34 @@ function render() {
   try { localStorage.setItem('mw-theme', S.dark ? 'dark' : 'light'); } catch(e) {}
 
   if (_rendering) {
-    // Already mid-transition — update content immediately without new transition
     app.innerHTML = S.authed ? renderMain() : renderAuth();
     bindEvents();
     return;
   }
 
   _rendering = true;
-  app.style.opacity = '0';
-  app.style.transform = 'translateY(5px)';
-  app.style.transition = 'opacity 0.12s ease, transform 0.12s ease';
+  // Set transition first, THEN change opacity so the browser registers it
+  app.style.transition = 'opacity 0.14s ease, transform 0.14s ease';
+  requestAnimationFrame(() => {
+    app.style.opacity = '0';
+    app.style.transform = 'translateY(5px)';
+  });
 
   setTimeout(() => {
     app.innerHTML = S.authed ? renderMain() : renderAuth();
     bindEvents();
-    app.style.transition = 'opacity 0.24s ease, transform 0.24s ease';
-    requestAnimationFrame(() => {
+    app.style.transition = 'opacity 0.28s cubic-bezier(0.25,0,0.25,1), transform 0.28s cubic-bezier(0.25,0,0.25,1)';
+    // Double rAF ensures new DOM is painted before fade-in starts
+    requestAnimationFrame(() => requestAnimationFrame(() => {
       app.style.opacity = '1';
       app.style.transform = 'translateY(0)';
-    });
+    }));
     setTimeout(() => {
       app.style.transition = '';
-      app.style.transform = '';
+      app.style.transform  = '';
       _rendering = false;
-    }, 280);
-  }, 110);
+    }, 320);
+  }, 160);
 }
 
 // ── SVG Icons (matching Lucide) ────────────────────────────────────

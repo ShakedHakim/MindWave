@@ -109,10 +109,12 @@ body {
   background: linear-gradient(180deg, oklch(0.98 0.02 150) 0%, oklch(0.97 0.03 220) 100%);
   color: var(--foreground);
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   direction: rtl;
   overflow-x: hidden;
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 .dark body {
@@ -123,6 +125,7 @@ body {
   width: 100%;
   max-width: 430px;
   min-height: 100vh;
+  min-height: 100dvh;
   background: transparent;
   position: relative;
 }
@@ -130,6 +133,7 @@ body {
 #app {
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
@@ -144,8 +148,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh;
   padding: 40px 24px 40px;
-  animation: fadeIn 0.3s ease;
 }
 .auth-top-row { display: flex; justify-content: flex-end; margin-bottom: 8px; }
 .icon-btn {
@@ -269,8 +273,8 @@ body {
    ============================================================ */
 .main-screen {
   min-height: 100vh;
-  padding-bottom: 96px;
-  animation: fadeIn 0.3s ease;
+  min-height: 100dvh;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 .app-header {
   padding: 40px 24px 16px;
@@ -561,8 +565,8 @@ body {
 .detail-screen {
   display: flex; flex-direction: column;
   height: calc(100vh - 80px);
+  height: calc(100dvh - 80px);
   padding: 0 12px;
-  animation: fadeIn 0.25s ease;
 }
 .detail-header {
   display: flex; align-items: center; gap: 8px;
@@ -876,8 +880,9 @@ body {
    ============================================================ */
 .group-chat-screen {
   display: flex; flex-direction: column;
-  height: calc(100vh - 80px); padding: 0 12px;
-  animation: fadeIn 0.25s ease;
+  height: calc(100vh - 80px);
+  height: calc(100dvh - 80px);
+  padding: 0 12px;
 }
 .group-chat-header {
   display: flex; align-items: center; gap: 8px;
