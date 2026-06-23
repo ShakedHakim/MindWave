@@ -1083,7 +1083,7 @@ function renderWeeklyReport() {
   const avg = (days.reduce((s,d)=>s+d.v,0)/days.length).toFixed(1);
   return `
   <div class="report-header-card">
-    <p class="report-week-label">15–21 ביוני 2025</p>
+    <p class="report-week-label">16–22 ביוני 2026</p>
     <p class="report-headline">שבוע טוב, נועה 🌱</p>
     <p class="report-sub-headline">ממוצע מצב רוח: <strong>${avg}/5</strong> · מעל הממוצע שלך</p>
   </div>
@@ -1120,7 +1120,7 @@ function renderMonthlyReport() {
   const avg = (weeks.reduce((s,w)=>s+w.v,0)/weeks.length).toFixed(1);
   return `
   <div class="report-header-card">
-    <p class="report-week-label">יוני 2025</p>
+    <p class="report-week-label">יוני 2026</p>
     <p class="report-headline">חודש של צמיחה 🌿</p>
     <p class="report-sub-headline">ממוצע מצב רוח: <strong>${avg}/5</strong> · מגמה עולה</p>
   </div>
