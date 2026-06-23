@@ -241,7 +241,7 @@ body {
   padding: 14px;
   font-size: 14px; font-weight: 500; font-family: var(--font);
   color: var(--foreground); cursor: pointer;
-  margin-top: 16px;
+  margin-top: 28px;
   transition: transform var(--ease);
 }
 .auth-guest:active { transform: scale(0.98); }

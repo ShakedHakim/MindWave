@@ -1073,6 +1073,21 @@ function renderReportBars(items, maxVal) {
     </div>`;
 }
 
+function reportDates() {
+  const HE_MONTHS = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+  const now = new Date();
+  const end = new Date(now); end.setDate(now.getDate() - 1);
+  const start = new Date(end); start.setDate(end.getDate() - 6);
+  const sd = start.getDate(), sm = start.getMonth();
+  const ed = end.getDate(), em = end.getMonth(), ey = end.getFullYear();
+  const week = sm === em
+    ? `${sd}–${ed} ב${HE_MONTHS[em]} ${ey}`
+    : `${sd} ב${HE_MONTHS[sm]}–${ed} ב${HE_MONTHS[em]} ${ey}`;
+  const month = `${HE_MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+  const nextMonth = HE_MONTHS[(now.getMonth() + 1) % 12];
+  return { week, month, nextMonth };
+}
+
 function renderWeeklyReport() {
   const days = [
     {d:'א׳', v:3, emoji:'😐'},{d:'ב׳', v:4, emoji:'🙂'},
@@ -1083,7 +1098,7 @@ function renderWeeklyReport() {
   const avg = (days.reduce((s,d)=>s+d.v,0)/days.length).toFixed(1);
   return `
   <div class="report-header-card">
-    <p class="report-week-label">16–22 ביוני 2026</p>
+    <p class="report-week-label">${reportDates().week}</p>
     <p class="report-headline">שבוע טוב, נועה 🌱</p>
     <p class="report-sub-headline">ממוצע מצב רוח: <strong>${avg}/5</strong> · מעל הממוצע שלך</p>
   </div>
@@ -1120,7 +1135,7 @@ function renderMonthlyReport() {
   const avg = (weeks.reduce((s,w)=>s+w.v,0)/weeks.length).toFixed(1);
   return `
   <div class="report-header-card">
-    <p class="report-week-label">יוני 2026</p>
+    <p class="report-week-label">${reportDates().month}</p>
     <p class="report-headline">חודש של צמיחה 🌿</p>
     <p class="report-sub-headline">ממוצע מצב רוח: <strong>${avg}/5</strong> · מגמה עולה</p>
   </div>
@@ -1144,7 +1159,7 @@ function renderMonthlyReport() {
     </div>
   </div>
   <div class="report-tip-card">
-    <p class="report-tip-title">💡 ליולי</p>
+    <p class="report-tip-title">💡 ל${reportDates().nextMonth}</p>
     <p class="report-tip-text">הרגלי הנשימה עובדים — נסי להוסיף יומן רגשי פעמיים בשבוע.</p>
   </div>`;
 }
