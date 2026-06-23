@@ -114,13 +114,13 @@ body {
   font-family: var(--font);
   background: linear-gradient(180deg, oklch(0.98 0.02 150) 0%, oklch(0.97 0.03 220) 100%);
   color: var(--foreground);
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-  min-height: 100dvh;
+  height: 100vh;
+  height: -webkit-fill-available;
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   justify-content: center;
   direction: rtl;
-  overflow-x: hidden;
+  overflow: hidden;
   padding-top: env(safe-area-inset-top, 0px);
 }
 
@@ -131,24 +131,17 @@ body {
 #app-wrapper {
   width: 100%;
   max-width: 430px;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-  min-height: 100dvh;
+  height: 100%;
   background: transparent;
   position: relative;
+  overflow: hidden;
 }
 
 #app {
   width: 100%;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-  min-height: 100dvh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+  height: 100%;
+  overflow: hidden;
 }
-#app::-webkit-scrollbar { width: 0; }
 
 /* ============================================================
    AUTH SCREEN  (mirrors AuthScreen component)
