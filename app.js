@@ -750,8 +750,46 @@ const groups = [
   { id:'morning', name: ()=>S.dark?'מעגל לילה':'מעגל בוקר', members:24, desc:()=>S.dark?'שיתוף קצר ורגוע לסיום היום':'שיתוף קצר ורגוע לפתיחת היום', tint:'tint-green' },
   { id:'war',     name: ()=>'אחרי המלחמה', members:156, desc:()=>'קהילה לפגועי טראומה ומשפחותיהם', tint:'tint-blue'  },
   { id:'mothers', name: ()=>'אמהות',        members:89,  desc:()=>'תמיכה הדדית לאמהות בהתמודדות',   tint:'tint-peach' },
-  { id:'sleep',   name: ()=>'נשימות לילה', members:67, desc:()=>'מרחב חם לרגעים שבין ערות לשינה', tint:'tint-light' },
+  { id:'sleep',   name: ()=>'נשימות לילה', members:67, desc:()=>'מרחב חם לרגעים שבין ערות לשינה', tint:'tint-light', nightOnly: true },
 ];
+
+const GROUP_INIT_MESSAGES = {
+  morning: [
+    { id:1, author:'מנחה · יעל', text:'בוקר טוב לכולן 🌿 איך התחלתן את היום?' },
+    { id:2, author:'ש.', text:'קמתי עם חרדה קטנה. ניסיתי לנשום לפני שקמתי מהמיטה — עזר.' },
+    { id:3, author:'ר.', text:'גם אני. ביחד יותר קל לפתוח את היום 🌸' },
+  ],
+  war: [
+    { id:1, author:'מנחה · יעל', text:'ברוכות הבאות. כאן מותר להביא את הכל — גם מה שקשה לומר בקול.' },
+    { id:2, author:'ש.', text:'עברתי אירוע קשה ועדיין מנסה להבין מה קורה לי כשזה עולה שוב.' },
+    { id:3, author:'ר.', text:'אני פה שנה. זה עוזר לדעת שיש מי שמבין מבפנים.' },
+  ],
+  mothers: [
+    { id:1, author:'מנחה · יעל', text:'שלום לכל האמהות כאן. ספרו — איך אתן היום?' },
+    { id:2, author:'ש.', text:'היה בכי ארוך הבוקר, שלי ושל הבת שלי. לא ידעתי מי מרגיעה את מי.' },
+    { id:3, author:'ר.', text:'מכירה את זה. לפעמים גם אנחנו צריכות להיות מוחזקות.' },
+  ],
+  sleep: [
+    { id:1, author:'מנחה · יעל', text:'שלום לכל מי שנמצאת בין ערות לשינה 🌙 כאן רגוע ונושם.' },
+    { id:2, author:'ש.', text:'שוב לילה ארוך. נשימת 4-7-8 עוזרת קצת.' },
+    { id:3, author:'ר.', text:'גם אני. ניסיתי להתמקד בדממה ולהרפות את השרירים לאט.' },
+  ],
+  anxiety: [
+    { id:1, author:'מנחה · יעל', text:'כאן אין לחץ לדבר — מספיק להיות נוכחת ולנשום.' },
+    { id:2, author:'ש.', text:'חרדה גדולה היום. הגעתי הנה כדי לנשום קצת ולהרגיש פחות לבד.' },
+    { id:3, author:'ר.', text:'שמחה שבאת. אנחנו כאן איתך 🌬️' },
+  ],
+  fears: [
+    { id:1, author:'מנחה · יעל', text:'פחד הוא לא האויב שלנו — הוא מנסה להגן. כאן נלמד להבין אותו.' },
+    { id:2, author:'ש.', text:'יש לי פחד ספציפי מסיטואציות חברתיות. קשה לי לדבר על זה בחוץ.' },
+    { id:3, author:'ר.', text:'לא לבד בזה. כאן זה בסדר לגמרי לספר.' },
+  ],
+  body: [
+    { id:1, author:'מנחה · יעל', text:'הגוף שלנו הוא שותף — לא אויב. כאן נחזיר את החיבור.' },
+    { id:2, author:'ש.', text:'אחרי הטראומה הרגשתי מנותקת לגמרי מהגוף שלי. הקבוצה עוזרת.' },
+    { id:3, author:'ר.', text:'תנועה קטנה, נשימה — גם זה כבר הרבה. כל צעד נחשב 🌿' },
+  ],
+};
 
 const joinableGroups = [
   { id:'anxiety', name:'מרחב שקט', members:203, desc:'מקום בטוח לנשום, להרגיש ולהיות', tint:'tint-blue' },
@@ -772,7 +810,7 @@ function renderCommunityTab() {
   <p class="community-hint">קהילות אנונימיות ובטוחות, מנוהלות ע״י מטפלים מוסמכים.</p>
 
   ${isMine ? [
-      ...groups.map(g => ({ id:g.id, name:g.name(), desc:g.desc(), members:g.members, tint:g.tint })),
+      ...groups.filter(g => !g.nightOnly || S.dark).map(g => ({ id:g.id, name:g.name(), desc:g.desc(), members:g.members, tint:g.tint })),
       ...joinableGroups.filter(g => S.joinedGroups[g.id])
     ].map(g => `
     <button class="group-card" data-group="${g.id}">
@@ -802,10 +840,10 @@ function renderGroupChatScreen() {
   const g = S.activeGroup;
   const key = `group_${g.id}`;
   if (!S[key]) {
-    S[key] = [
-      { id:1, author:'מנחה · יעל', text:`ברוכות הבאות ל"${g.name}". זה מרחב בטוח. שתפו במה שמרגיש נכון.` },
-      { id:2, author:'ש.',         text:'היה לי לילה קשה. נשימות עזרו קצת.' },
-      { id:3, author:'ר.',         text:'מחבקת. גם אצלי. תודה ששיתפת.' },
+    S[key] = GROUP_INIT_MESSAGES[g.id] || [
+      { id:1, author:'מנחה · יעל', text:`ברוכות הבאות ל"${g.name()}". זה מרחב בטוח. שתפו במה שמרגיש נכון.` },
+      { id:2, author:'ש.', text:'שמחה להיות כאן.' },
+      { id:3, author:'ר.', text:'מחבקת את כולן 🌸' },
     ];
   }
   return `
